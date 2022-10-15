@@ -5,15 +5,28 @@
 #
 #   movies = Movie.create([{ name: "Star Wars" }, { name: "Lord of the Rings" }])
 #   Character.create(name: "Luke", movie: movies.first)
+require 'json'
+require 'open-uri'
 
 Movie.destroy_all
-puts "Creating the movies"
-Movie.create!(title: "Wonder Woman 1984", overview: "Wonder Woman comes into conflict with the Soviet Union during the Cold War in the 1980s", poster_url: "https://image.tmdb.org/t/p/original/8UlWHLMpgZm9bx6QYh0NFoq67TZ.jpg", rating: 6.9)
-Movie.create!(title: "The Shawshank Redemption", overview: "Framed in the 1940s for double murder, upstanding banker Andy Dufresne begins a new life at the Shawshank prison", poster_url: "https://image.tmdb.org/t/p/original/q6y0Go1tsGEsmtFryDOJo3dEmqu.jpg", rating: 8.7)
-Movie.create!(title: "Titanic", overview: "101-year-old Rose DeWitt Bukater tells the story of her life aboard the Titanic.", poster_url: "https://image.tmdb.org/t/p/original/9xjZS2rlVxm8SFx8kPC3aIGCOYQ.jpg", rating: 7.9)
-Movie.create!(title: "Ocean's Eight", overview: "Debbie Ocean, a criminal mastermind, gathers a crew of female thieves to pull off the heist of the century.", poster_url: "https://image.tmdb.org/t/p/original/MvYpKlpFukTivnlBhizGbkAe3v.jpg", rating: 7.0)
+puts 'Creating the movies'
 
-List.create!(name: "Hollywood")
-List.create!(name: "Bollywood")
-List.create!(name: "Horror Movies")
-List.create!(name: "Romantic Movies")
+# Api key Example
+# https://api.themoviedb.org/3/movie/550?api_key=aaae9f29e0cc89950560a49ffc23f4a6
+
+# api_key = 'aaae9f29e0cc89950560a49ffc23f4a6'
+
+
+url = "https://tmdb.lewagon.com/movie/top_rated"
+movie_serialized = URI.open(url).read
+movie_data = JSON.parse(movie_serialized)
+movies = movie_data['results']
+
+20.times do |i|
+  Movie.create!(
+    title: movies[i - 1]['original_title'],
+    overview: movies[i - 1]['overview'],
+    poster_url: "https://image.tmdb.org/t/p/original/#{movies[i - 1]['poster_path']}",
+    rating: movies[i - 1]['vote_average']
+  )
+end

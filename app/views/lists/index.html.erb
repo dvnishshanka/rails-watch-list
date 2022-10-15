@@ -7,8 +7,10 @@
 </div>
 
 <div class="container">
-  <%= link_to "Create a movie list", new_list_path, class: "btn btn-gradient" %>
+  <%= link_to "Create a movie list", new_list_path, class: "btn btn-gradient float-end" %>
+   <h1>My List</h1>
   <div class="list-card-container d-flex flex-wrap justify-content-between">
+
     <% @lists.each do |list| %>
     <%= link_to list_path(list) do %>
       <div class="list-card m-3" style="background-image: linear-gradient(rgba(0,0,0,0.3), rgba(0,0,0,0.3)), url(https://10play.com.au/ip/s3/2019/08/09/e4b365d10829878d80a0a1871ffeee0b-551003.jpg?image-profile=image_poster&io=portrait&dpr=2)">
