@@ -13,9 +13,14 @@
 
     <% @lists.each do |list| %>
     <%= link_to list_path(list) do %>
-      <div class="list-card m-3" style="background-image: linear-gradient(rgba(0,0,0,0.3), rgba(0,0,0,0.3)), url('<%= @article.photo.attached ? cl_image_path list.photo.key, height: 300, crop: :fill : null%>')">
+    <% if list.photo.attached?  %>
+      <div class="list-card m-3" style="background-image: url('<%=  (cl_image_path list.photo.key, height: 300, crop: :fill )%>')">
+       </div>
         <%= list.name %>
-      </div>
+        <% else %>
+        <%= list.name %>
+        <% end %>
+
       <%end %>
   <% end %>
   </div>
