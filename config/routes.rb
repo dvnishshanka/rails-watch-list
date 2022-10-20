@@ -11,5 +11,3 @@ root 'lists#index'
   end
   resources :bookmarks, only: [:destroy]
 end
-
-# random comment

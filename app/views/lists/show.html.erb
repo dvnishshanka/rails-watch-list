@@ -18,11 +18,8 @@
       <div class="container pt-3" >
         <div><strong>  <%= bookmark.movie.title %></strong></div>
           <p style="color: grey; font-size:13px;"><%= bookmark.movie.overview %></p>
-      <p> <i class="fa-solid fa-quote-left"></i> <%= bookmark.comment %>
-
-
-      </p>
- <%= link_to "Delete", bookmark_path(bookmark),   data: {turbo_method: :delete, turbo_confirm: "Are you sure?"} %>
+      <p> <i class="fa-solid fa-quote-left"></i> <%= bookmark.comment %></p>
+<%= link_to "Delete", bookmark_path(bookmark),   data: {turbo_method: :delete, turbo_confirm: "Are you sure?"} %>
       </div>
 
         </div>
