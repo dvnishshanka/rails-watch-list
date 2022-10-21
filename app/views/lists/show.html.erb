@@ -8,25 +8,32 @@
 
 
 <div class="container">
-<%= link_to "Delete the list", list_path(@list),data: {turbo_method: :delete, turbo_confirm: "Are you sure?"}, class: "btn float-end btn-secondary" %>
+  <%= link_to "Delete the list", list_path(@list),data: {turbo_method: :delete, turbo_confirm: "Are you sure?"}, class: "btn float-end btn-secondary" %>
   <%= link_to "Add a movie", new_bookmark_path(@list) %>
-
 
   <div class="movie-card-container d-flex flex-wrap justify-content-between container my-5">
     <% @list.bookmarks.each do |bookmark| %>
-    <div class="movie-card ">
-      <img src=<%=bookmark.movie.poster_url %> style="width: 100%; height:70%;">
-      <div class="container pt-3" >
-        <div><strong>  <%= bookmark.movie.title %></strong></div>
+      <div class="movie-card ">
+        <img src=<%=bookmark.movie.poster_url %> style="width: 100%; height:70%;">
+        <div class="container pt-3" >
+          <strong> <%= bookmark.movie.title %></strong>
           <p style="color: grey; font-size:13px;"><%= bookmark.movie.overview %></p>
-      <p> <i class="fa-solid fa-quote-left"></i> <%= bookmark.comment %></p>
-<%= link_to "Delete", bookmark_path(bookmark),   data: {turbo_method: :delete, turbo_confirm: "Are you sure?"} %>
-      </div>
-
+          <p> <i class="fa-solid fa-quote-left"></i> <%= bookmark.comment %></p>
+          <%= link_to "Delete", bookmark_path(bookmark),   data: {turbo_method: :delete, turbo_confirm: "Are you sure?"} %>
         </div>
-  <% end %>
+      </div>
+    <% end %>
   </div>
 
-
-
+  <hr class="mb-10">
+  <%= link_to "Add a review", new_review_path(@list), class: "btn float-end btn-primary mt-10" %>
+  <h1>Reviews</h1>
+  <% @list.reviews.each do |review| %>
+    <p> <% review.rating.times do  %>
+      <i class="fa-solid fa-star" style="color:rgb(255,255,0);" ></i>
+    <% end %>
+    </p>
+    <p> <%= review.content %></p>
+    <hr>
+  <% end %>
 </div>

@@ -8,6 +8,10 @@ root 'lists#index'
     member do
       resources :bookmarks, only: [:new, :create]
     end
+
+    member do
+    resources :reviews, only: [:new, :create]
+    end
   end
   resources :bookmarks, only: [:destroy]
 end
